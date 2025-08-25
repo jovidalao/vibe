@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+运行inngest后台
+```bash
+pnpx inngest-cli@latest dev
+```
+
+运行项目
+```bash
+pnpm run dev
+```
+
+生成e2b虚拟机
+```bash
+e2b template build --name unique-name
+e2b template build --name unique-name --cmd "/compile_page.sh"
+```
