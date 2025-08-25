@@ -19,4 +19,4 @@ function ping_server() {
 
 ping_server &
 # Start dev server with pnpm (使用 pnpm 启动开发服务器)
-cd /home/user && pnpm dev -- --turbopack
+cd /home/user && pnpm dev --turbopack --hostname 0.0.0.0 --port 3000

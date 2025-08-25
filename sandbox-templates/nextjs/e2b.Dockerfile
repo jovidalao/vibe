@@ -5,7 +5,7 @@ FROM node:21-slim
 RUN apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
  
 # Enable corepack and activate pnpm for package management (启用 corepack 并激活 pnpm 作为包管理器)
-RUN corepack enable && corepack prepare pnpm@9.9.0 --activate
+RUN corepack enable && corepack prepare pnpm@10.14.0 --activate
 
 COPY compile_page.sh /compile_page.sh
 RUN chmod +x /compile_page.sh
