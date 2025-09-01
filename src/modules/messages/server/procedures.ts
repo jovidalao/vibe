@@ -8,17 +8,22 @@ export const messagesRouter = createTRPCRouter({
         const messages = await prisma.message.findMany({
             orderBy: {
                 updatedAt: "desc"
-            }
-        });
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+        }
+    );
 
         return messages;
     }),
     
     create: baseProcedure.input(z.object({
-        value: z.string().min(1, { message: "Message cannot be empty" }),
+        value: z.string()
+            .min(1, { message: "Message cannot be empty" })
+            .max(10000, { message: "Message cannot be more than 10000 characters" }),
+        projectId: z.string().min(1, { message: "Project ID cannot be empty" }),
     })).mutation(async( { input }) => {
         const createdMessage = await prisma.message.create({
             data: {
+                projectId: input.projectId,
                 content: input.value,
                 role: "USER",
                 type: "RESULT"
@@ -29,6 +34,7 @@ export const messagesRouter = createTRPCRouter({
             name: "code-agent/run",
             data: {
                 value: input.value,
+                projectId: input.projectId,
             }
         });
 
