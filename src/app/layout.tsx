@@ -26,19 +26,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Prevent hydration mismatches caused by browser extensions (e.g., Dark Reader) that mutate <html> attributes on the client.
-    // 防止由于浏览器扩展（如 Dark Reader）在客户端修改 <html> 属性而导致的水合不匹配
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TRPCReactProvider>
+    <TRPCReactProvider>
+      <html suppressHydrationWarning>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Toaster />
             {children}
-          </TRPCReactProvider>
-          <Toaster position="top-right" richColors />
-        </ThemeProvider>
-      </body>
-    </html>
+          </ThemeProvider>
+        </body>
+      </html>
+    </TRPCReactProvider>
   );
 }
