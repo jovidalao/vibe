@@ -16,9 +16,13 @@ export const FragmentWeb = ({ data }: Props) => {
     const onRefresh = () => {
         setFragmentKey(prev => prev + 1);
     }
-    const handleCopy = () => {
+    const handleCopy = async () => {
         setCopied(true);
-        navigator.clipboard.writeText(data.sandboxUrl);
+        try {
+            await navigator.clipboard.writeText(data.sandboxUrl);
+        } catch (err) {
+            // Optionally, handle error (e.g., show a message)
+        }
         setTimeout(() => {
             setCopied(false);
         }, 2000);
