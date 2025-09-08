@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLinkIcon, RefreshCcwIcon } from "lucide-react";
 import { useState } from "react";
 import { Hint } from "@/components/hint";
+import { toast } from "sonner";
 
 interface Props {
     data: Fragment;
@@ -21,7 +22,7 @@ export const FragmentWeb = ({ data }: Props) => {
         try {
             await navigator.clipboard.writeText(data.sandboxUrl);
         } catch (err) {
-            // Optionally, handle error (e.g., show a message)
+            toast.error("Failed to copy to clipboard");
         }
         setTimeout(() => {
             setCopied(false);
