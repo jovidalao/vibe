@@ -18,6 +18,7 @@ interface Props {
 export const MessageContainer = ({ projectId, activeFragment, setActiveFragment }: Props) => {
     const trpc = useTRPC();
     const bottomRef = useRef<HTMLDivElement>(null);
+    const lastAssistantMessageRef = useRef<string | null>(null);
 
     const { data: messages } = useSuspenseQuery(trpc.messages.getMany.queryOptions({
         projectId
@@ -25,16 +26,15 @@ export const MessageContainer = ({ projectId, activeFragment, setActiveFragment 
         // TODO: Temorary live message update
         refetchInterval: 5000,
     }));
-    // TODO: This causing problem.
-    // useEffect(() => {
-    //     const lastAssistantMessageWithFragment = messages.findLast(
-    //         (messages) => messages.role === "ASSISTANT" && messages.fragment
-    //     );
 
-    //     if (lastAssistantMessageWithFragment) {
-    //         setActiveFragment(lastAssistantMessageWithFragment.fragment);
-    //     }
-    // }, [messages, setActiveFragment])
+    useEffect(() => {
+        const lastAssistantMessage = messages.findLast(
+            (message) => message.role === "ASSISTANT" && message.fragment
+        );
+        if (lastAssistantMessage) {
+            setActiveFragment(lastAssistantMessage.fragment);
+        }
+    }, [messages, setActiveFragment])
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView();
